@@ -1,0 +1,45 @@
+syntax = "proto3"; //protobuf的版本
+
+package fixbug; //代码所在包 namespace
+
+//数据(bytes...) 列表(数组...) 映射表(map...)
+
+//将响应的公共部分定义为一个对象
+message ResultCode
+{
+  int32 errcode = 1;
+  bytes errmsg = 2;
+}
+
+//定义登录响应消息类型
+message LoginResponse
+{
+  int32 errcode = 1;
+  bytes errmsg = 2;
+  bool success = 3;
+}
+
+//定义获取好友列表请求的消息类型
+message GetFriendListRequest
+{
+  uint32 userid = 1;
+}
+
+//定义用户信息的消息类型
+message User
+{
+  bytes name = 1;
+  uint32 age = 2;
+  enum Sex {
+    MAN = 0;
+    WOMAN = 1;
+  }
+  Sex sex = 3;
+}
+
+//好友列表类型的响应
+message GetFriendListResponse
+{
+  ResultCode retcode = 1;
+  repeated User friend_list = 2; //repeated ... 列表类型 好友列表
+}

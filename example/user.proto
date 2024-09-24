@@ -1,0 +1,44 @@
+syntax = "proto3"; //protobuf的版本
+
+package fixbug; //代码所在包 namespace
+
+option cc_generic_services = true; //生成service服务类和rpc方法描述
+
+//参数 返回值 方法描述
+
+//登录业务
+message LoginRequest
+{
+  bytes name = 1;
+  bytes pwd = 2;
+}
+
+message ResultCode
+{
+  int32 errcode = 1;
+  bytes errmsg = 2;
+}
+message LoginResponse
+{
+  ResultCode result = 1;
+  bool success = 2;
+}
+
+//注册业务
+message RegistRequest
+{
+  uint32 id = 1;
+  bytes name = 2;
+  bytes pwd = 3;
+}
+message RegistResponse
+{
+  ResultCode result = 1;
+  bool success = 2;
+}
+
+service UserServiceRpc
+{
+  rpc rLogin(LoginRequest) returns(LoginResponse);
+  rpc rRegist(RegistRequest) returns(RegistResponse);
+}
